@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -42,9 +43,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_reparto);
 
-        listView = (ListView) findViewById(R.id.listView);
+        listView = (ListView) findViewById(R.id.listCast);
 
         new ObtenerPeliculasAsync().execute(endPointPeliculas);
         /*btObtener.setOnClickListener(new View.OnClickListener() {
@@ -54,9 +55,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });*/
-
-
-
 
     }
     public boolean onCreateOptionsMenu(Menu menu){
@@ -75,8 +73,8 @@ public class MainActivity extends AppCompatActivity {
                 return true;
 
             case R.id.mnuAcerca:
-                //intent = new Intent(getApplicationContext(), AcercaActivity.class);
-                //startActivity(intent);
+                intent = new Intent(getApplicationContext(), AcercaActivity.class);
+                startActivity(intent);
 
                 return true;
             case R.id.mnuSalir:
@@ -87,7 +85,9 @@ public class MainActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-    public static final String endPointPeliculas = "http://api.themoviedb.org/3/discover/movie?api_key=5e69d4e6c0b36f74916104df2465cb80&language=es";
+
+
+    public static final String endPointPeliculas = "http://api.themoviedb.org/3/discover/movie?api_key=6c5bbf4c9700e48c4189d6d418b5ae8c&language=es";
     public static final String MOVIE_BASE_URL="https://image.tmdb.org/t/p/w185";
     class ObtenerPeliculasAsync extends AsyncTask<String, Integer, String> {
         ProgressDialog progreso;
@@ -162,6 +162,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
 
+
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
@@ -172,6 +173,21 @@ public class MainActivity extends AppCompatActivity {
 
             AdaptadorPelicula adaptador=new AdaptadorPelicula(getApplicationContext(),listaPeliculas);
             listView.setAdapter(adaptador);
+
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                    Intent intent = new Intent(getApplicationContext(), DetalleActivity.class);
+                    intent.putExtra("id", String.valueOf (listaPeliculas.get(position).getId() ) );
+                    intent.putExtra("titulo", listaPeliculas.get(position).getTitle() );
+                    intent.putExtra("imagen", listaPeliculas.get(position).getBackdrop_path());
+                    intent.putExtra("sinopsis", listaPeliculas.get(position).getOverview() );
+
+                    Log.d("test", "Pasando id " + listaPeliculas.get(position).getId() );
+
+                    startActivity(intent);
+                }
+            });
 
         }
     }
@@ -201,21 +217,21 @@ public class MainActivity extends AppCompatActivity {
                 convertView = LayoutInflater.from(context).inflate(R.layout.lista_peliculas, parent, false);
             }
 
-            // Titulo
+            // Fecha
             TextView fecha = (TextView) convertView.findViewById(R.id.tvFecha);
             fecha.setText(arrayList.get(position).getRelease_date());
 
             // Titulo
-            TextView name = (TextView) convertView.findViewById(R.id.tvTitle);
+            TextView name = (TextView) convertView.findViewById(R.id.tvPersonaje);
             name.setText(arrayList.get(position).getTitle());
 
-            // Titulo
-            TextView descripcion = (TextView) convertView.findViewById(R.id.tvDescripcion);
-            descripcion.setText(arrayList.get(position).getOverview().substring(0,100) + " ... ");
+            // Sinopsis
+            TextView descripcion = (TextView) convertView.findViewById(R.id.tvNombre);
+            descripcion.setText(arrayList.get(position).getOverview().substring(0,90) + " ... ");
 
             // Imagen.
-            ImageView imagen = (ImageView) convertView.findViewById(R.id.list_image);
-            Picasso.get().load(MOVIE_BASE_URL + arrayList.get(position).getBackdrop_path()).into(imagen);
+            ImageView imagen = (ImageView) convertView.findViewById(R.id.actor_image);
+            Picasso.get().load(MOVIE_BASE_URL + arrayList.get(position).getPoster_path()).into(imagen);
             imagen.setScaleType(ImageView.ScaleType.FIT_XY);
 
             return convertView;

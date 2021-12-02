@@ -10,28 +10,47 @@
         android:id="@+id/textView"
         android:layout_width="366dp"
         android:layout_height="58dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginEnd="29dp"
         android:text="API"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName"
-        tools:layout_editor_absoluteX="22dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/etApiKey"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="19dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        android:text="Endpoint Peliculas"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <Button
+        android:id="@+id/btGuardar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="153dp"
+        android:layout_marginTop="173dp"
+        android:text="GUARDAR"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
 
     <EditText
         android:id="@+id/editTextTextPersonName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="11dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="27dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="API"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="23dp" />
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="39dp"
-        android:text="GUARDAR"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        tools:layout_editor_absoluteX="155dp" />
+        android:minHeight="48dp"
+        android:text="Endpoint Creditos"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etApiKey" />
 </androidx.constraintlayout.widget.ConstraintLayout>

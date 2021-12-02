@@ -2,8 +2,12 @@ package com.example.peliculaspgv;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 public class ConfigurationActivity extends AppCompatActivity {
 
@@ -11,20 +15,30 @@ public class ConfigurationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_configuration);
-/*
         // Storing data into SharedPreferences
-        SharedPreferences sharedPreferences = getSharedPreferences("Configuracion", MODE_PRIVATE);
+        SharedPreferences preferencias;
 
-        // Creating an Editor object to edit(write to the file)
-        SharedPreferences.Editor myEdit = sharedPreferences.edit();
+        EditText etApiKey = (EditText) findViewById(R.id.etApiKey);
+        Button btGuardar = (Button) findViewById(R.id.btGuardar);
 
-        // Storing the key and its value as the data fetched from edittext
-        myEdit.putString("name", name.getText().toString());
-        myEdit.putInt("age", Integer.parseInt(age.getText().toString()));
+        // Preferencias.
+        preferencias = getSharedPreferences("datos", Context.MODE_PRIVATE);
 
-        // Once the changes have been made,
-        // we need to commit to apply those changes made,
-        // otherwise, it will throw an error
-        myEdit.commit();*/
+        // Mostrar en la pantalla.
+        etApiKey.setText( preferencias.getString("api_key","") );
+
+
+        btGuardar.setOnClickListener(e->{
+            // Guardar preferencias y salir.
+            SharedPreferences.Editor editor = preferencias.edit();
+            editor.putString("api_key", etApiKey.getText().toString());
+            editor.commit();
+
+            Toast t = Toast.makeText(getApplicationContext(), "Configuración guardada correctamente.", Toast.LENGTH_SHORT);
+            t.show();
+
+            finish();
+        });
+
     }
 }

@@ -5,10 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".RepartoActivity">
 
-    <ListView
-        android:id="@+id/listMovies"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+  <ListView
+      android:id="@+id/listCast"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent" />
 </LinearLayout>

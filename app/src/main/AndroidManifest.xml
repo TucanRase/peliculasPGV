@@ -3,6 +3,7 @@
     package="com.example.peliculaspgv">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
         android:allowBackup="true"
@@ -12,6 +13,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PeliculasPGV">
+        <activity
+            android:name=".AcercaActivity"
+            android:exported="true" />
+        <activity
+            android:name=".RepartoActivity"
+            android:exported="false"
+            android:label="@string/Reparto" />
+        <activity
+            android:name=".DetalleActivity"
+            android:exported="false"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value="com.example.peliculaspgv.MainActivity"/>
+        </activity>
         <activity
             android:name=".ConfigurationActivity"
             android:exported="false" />
